@@ -130,10 +130,27 @@ if selected_index:
     language_terms = populate_terms(languages_selected, 'language.keyword')
     country_terms = populate_terms(countries_selected, 'country.keyword')
 
-# Create prompt vector
-input_question = None
-st.markdown('### Please enter your question')
-input_question = st.text_input("Enter your question here (phrased as if you ask a human)")
+
+    # Get input dates
+    default_start_date = datetime(2024, 1, 1)
+    default_end_date = datetime(2024, 1, 15)
+
+    selected_start_date = st.date_input("Select start date:", default_start_date)
+    formatted_start_date = selected_start_date.strftime("%Y-%m-%d")
+    st.write("You selected start date:", selected_start_date)
+    selected_end_date = st.date_input("Select end date:", default_end_date)
+    formatted_end_date = selected_end_date.strftime("%Y-%m-%d")
+    st.write("You selected end date:", selected_end_date)
+    must_term = create_must_term(category_terms,
+                                 language_terms,
+                                 country_terms,
+                                 formatted_start_date=formatted_start_date,
+                                 formatted_end_date=formatted_end_date)
+
+    # Create prompt vector
+    input_question = None
+    st.markdown('### Please enter your question')
+    input_question = st.text_input("Enter your question here (phrased as if you ask a human)")
 
 
 if input_question:
@@ -150,21 +167,21 @@ if input_question:
     vec = angle.encode({'text': input_question}, to_numpy=True, prompt=Prompts.C)
     question_vector = vec.tolist()[0]
 
-    # Get input dates
-    default_start_date = datetime(2024, 5, 1)
-    default_end_date = datetime(2024, 5, 15)
-
-    selected_start_date = st.date_input("Select start date:", default_start_date)
-    formatted_start_date = selected_start_date.strftime("%Y-%m-%d")
-    st.write("You selected start date:", selected_start_date)
-    selected_end_date = st.date_input("Select end date:", default_end_date)
-    formatted_end_date = selected_end_date.strftime("%Y-%m-%d")
-    st.write("You selected end date:", selected_end_date)
-    must_term = create_must_term(category_terms,
-                                 language_terms,
-                                 country_terms,
-                                 formatted_start_date=formatted_start_date,
-                                 formatted_end_date=formatted_end_date)
+    # # Get input dates
+    # default_start_date = datetime(2024, 1, 1)
+    # default_end_date = datetime(2024, 1, 15)
+    #
+    # selected_start_date = st.date_input("Select start date:", default_start_date)
+    # formatted_start_date = selected_start_date.strftime("%Y-%m-%d")
+    # st.write("You selected start date:", selected_start_date)
+    # selected_end_date = st.date_input("Select end date:", default_end_date)
+    # formatted_end_date = selected_end_date.strftime("%Y-%m-%d")
+    # st.write("You selected end date:", selected_end_date)
+    # must_term = create_must_term(category_terms,
+    #                              language_terms,
+    #                              country_terms,
+    #                              formatted_start_date=formatted_start_date,
+    #                              formatted_end_date=formatted_end_date)
 
 
     if formatted_start_date and formatted_end_date:
