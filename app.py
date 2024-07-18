@@ -147,10 +147,10 @@ if selected_index:
                                  formatted_start_date=formatted_start_date,
                                  formatted_end_date=formatted_end_date)
 
-    # Create prompt vector
-    input_question = None
-    st.markdown('### Please enter your question')
-    input_question = st.text_input("Enter your question here (phrased as if you ask a human)")
+# Create prompt vector
+input_question = None
+st.markdown('### Please enter your question')
+input_question = st.text_input("Enter your question here (phrased as if you ask a human)")
 
 
 if input_question:
