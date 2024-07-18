@@ -131,21 +131,21 @@ if selected_index:
     country_terms = populate_terms(countries_selected, 'country.keyword')
 
 
-    # Get input dates
-    default_start_date = datetime(2024, 1, 1)
-    default_end_date = datetime(2024, 1, 15)
+# Get input dates
+default_start_date = datetime(2024, 1, 1)
+default_end_date = datetime(2024, 1, 15)
 
-    selected_start_date = st.date_input("Select start date:", default_start_date)
-    formatted_start_date = selected_start_date.strftime("%Y-%m-%d")
-    st.write("You selected start date:", selected_start_date)
-    selected_end_date = st.date_input("Select end date:", default_end_date)
-    formatted_end_date = selected_end_date.strftime("%Y-%m-%d")
-    st.write("You selected end date:", selected_end_date)
-    must_term = create_must_term(category_terms,
-                                 language_terms,
-                                 country_terms,
-                                 formatted_start_date=formatted_start_date,
-                                 formatted_end_date=formatted_end_date)
+selected_start_date = st.date_input("Select start date:", default_start_date)
+formatted_start_date = selected_start_date.strftime("%Y-%m-%d")
+st.write("You selected start date:", selected_start_date)
+selected_end_date = st.date_input("Select end date:", default_end_date)
+formatted_end_date = selected_end_date.strftime("%Y-%m-%d")
+st.write("You selected end date:", selected_end_date)
+must_term = create_must_term(category_terms,
+                             language_terms,
+                             country_terms,
+                             formatted_start_date=formatted_start_date,
+                             formatted_end_date=formatted_end_date)
 
 # Create prompt vector
 input_question = None
